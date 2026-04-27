@@ -185,6 +185,23 @@ def CheckApisForApp(appid: int, contentScriptQuery: str = "") -> str:
 
 MORRENUS_STATS_CACHE = {}
 
+def ProxyGameGenRequest(appid: int, contentScriptQuery: str = "") -> str:
+    """Backend 'proxy thing' for GameGen API, allowing the frontend to fetch manifest data safely."""
+    try:
+        from config import GAMEGEN_API_KEY
+        from http_client import ensure_http_client
+        client = ensure_http_client("GameGen: ProxyRequest")
+        
+        url = f"https://manifest.morrenus.xyz/api/v1/manifest/{appid}?api_key={GAMEGEN_API_KEY}"
+        logger.log(f"GameGen: Proxying request for AppID {appid}")
+        
+        resp = client.get(url, follow_redirects=True, timeout=10)
+        return resp.text
+    except Exception as exc:
+        logger.warn(f"GameGen: ProxyGameGenRequest failed for {appid}: {exc}")
+        return json.dumps({"success": False, "error": str(exc)})
+
+
 def GetMorrenusStats(api_key: str, force_refresh: bool = False, contentScriptQuery: str = "", **kwargs: Any) -> str:
     import time
     global MORRENUS_STATS_CACHE

@@ -22,6 +22,7 @@ from config import (
     WEBKIT_DIR_NAME,
     WEB_UI_ICON_FILE,
     WEB_UI_JS_FILE,
+    GAMEGEN_API_KEY,
 )
 from http_client import ensure_http_client
 import httpx
@@ -703,6 +704,13 @@ def _download_zip_for_app(appid: int):
             template = template.replace("<moapikey>", morrenus_api_key)
 
         url = template.replace("<appid>", str(appid))
+
+        # Handle GameGen proxy scheme
+        if url.startswith("proxy://gamegen/"):
+            actual_appid = url.split("proxy://gamegen/")[1]
+            url = f"https://manifest.morrenus.xyz/api/v1/manifest/{actual_appid}?api_key={GAMEGEN_API_KEY}"
+            logger.log(f"GameGen: Translated proxy URL for '{name}' to real API")
+
         _set_download_state(
             appid, {"status": "checking", "currentApi": name, "bytesRead": 0, "totalBytes": 0}
         )

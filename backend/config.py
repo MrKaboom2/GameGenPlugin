@@ -14,8 +14,9 @@ DEFAULT_HEADERS = {
     "Sec-Fetch-Site": "cross-site",
 }
 
-API_MANIFEST_URL = "https://raw.githubusercontent.com/madoiscool/gg_api_links/refs/heads/main/load_free_manifest_apis"
-API_MANIFEST_PROXY_URL = "https://GameGen.vercel.app/load_free_manifest_apis"
+API_MANIFEST_URL = "https://raw.githubusercontent.com/MrKaboom2/gg_api_links/refs/heads/main/load_free_manifest_apis"
+API_MANIFEST_PROXY_URL = "https://GameGenPlugin.vercel.app/load_free_manifest_apis"
+GAMEGEN_API_KEY = "mg_8ba8e4f34c30436fa42aa7d5e3ac0a98"
 API_JSON_FILE = "api.json"
 
 UPDATE_CONFIG_FILE = "update.json"
