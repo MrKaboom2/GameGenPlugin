@@ -1,5 +1,5 @@
 # GameGen Plugin Installer
-# Run: irm https://raw.githubusercontent.com/MrKaboom2/GameGen/main/install.ps1 | iex
+# Run: irm https://raw.githubusercontent.com/MrKaboom2/GameGenPlugin/main/install.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 
@@ -23,7 +23,7 @@ if (Test-Path $targetPath) {
 New-Item -ItemType Directory -Force -Path $targetPath | Out-Null
 
 # 3. Download and Extract
-$zipUrl = "https://github.com/MrKaboom2/GameGen/archive/refs/heads/main.zip"
+$zipUrl = "https://github.com/MrKaboom2/GameGenPlugin/archive/refs/heads/main.zip"
 $tempZip = Join-Path $env:TEMP "GameGen.zip"
 
 Write-Host "Downloading GameGen from GitHub..." -ForegroundColor White
