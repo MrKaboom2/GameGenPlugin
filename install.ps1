@@ -37,12 +37,12 @@ $extractedFolder = Get-ChildItem -Path "$env:TEMP\GameGenTemp" -Directory | Sele
 Move-Item -Path (Join-Path $extractedFolder.FullName "*") -Destination $targetPath -Force
 
 # 4. Cleanup
-if (Test-Path $tempZip) {
-    Remove-Item -Path $tempZip -Force -ErrorAction SilentlyContinue
+if ($tempZip -and (Test-Path -LiteralPath $tempZip)) {
+    Remove-Item -LiteralPath $tempZip -Force -ErrorAction SilentlyContinue
 }
 $tempFolder = Join-Path $env:TEMP "GameGenTemp"
-if (Test-Path $tempFolder) {
-    Remove-Item -Path $tempFolder -Recurse -Force -ErrorAction SilentlyContinue
+if ($tempFolder -and (Test-Path -LiteralPath $tempFolder)) {
+    Remove-Item -LiteralPath $tempFolder -Recurse -Force -ErrorAction SilentlyContinue
 }
 
 Write-Host "`nSuccessfully installed GameGen to: $targetPath" -ForegroundColor Green
