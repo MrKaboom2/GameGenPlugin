@@ -37,8 +37,13 @@ $extractedFolder = Get-ChildItem -Path "$env:TEMP\GameGenTemp" -Directory | Sele
 Move-Item -Path (Join-Path $extractedFolder.FullName "*") -Destination $targetPath -Force
 
 # 4. Cleanup
-Remove-Item -Path $tempZip -Force
-Remove-Item -Path "$env:TEMP\GameGenTemp" -Recurse -Force
+if (Test-Path $tempZip) {
+    Remove-Item -Path $tempZip -Force -ErrorAction SilentlyContinue
+}
+$tempFolder = Join-Path $env:TEMP "GameGenTemp"
+if (Test-Path $tempFolder) {
+    Remove-Item -Path $tempFolder -Recurse -Force -ErrorAction SilentlyContinue
+}
 
 Write-Host "`nSuccessfully installed GameGen to: $targetPath" -ForegroundColor Green
 Write-Host "Please restart Steam to activate the plugin." -ForegroundColor Cyan
